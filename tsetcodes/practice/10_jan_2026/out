@@ -1,0 +1,67 @@
+#! /usr/local/bin/vvp
+:ivl_version "13.0 (devel)" "(s20250103-64-gdad78d525)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/local/lib/ivl/system.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/local/lib/ivl/v2005_math.vpi";
+:vpi_module "/usr/local/lib/ivl/va_math.vpi";
+:vpi_module "/usr/local/lib/ivl/v2009.vpi";
+S_0x640f29bcca40 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_0x640f29ba5210 .scope module, "practice" "practice" 3 1;
+ .timescale 0 0;
+v0x640f29ba53a0_0 .var/real "expo", 0 0;
+v0x640f29bf2d30_0 .var/2u "hello", 136 0;
+v0x640f29bf2e10_0 .var/str "myname";
+v0x640f29bf2eb0_0 .var "out1", 3 0;
+v0x640f29bf2f90_0 .var "out2", 3 0;
+v0x640f29bf30c0_0 .var "out3", 3 0;
+v0x640f29bf31a0_0 .var "out4", 3 0;
+v0x640f29bf3280_0 .var/real "pi", 0 0;
+    .scope S_0x640f29ba5210;
+T_0 ;
+    %pushi/str "krushna ";
+    %store/str v0x640f29bf2e10_0;
+    %pushi/vec4 3502954712, 0, 82;
+    %concati/vec4 3728797406, 0, 32;
+    %concati/vec4 7498852, 0, 23;
+    %store/vec4 v0x640f29bf2d30_0, 0, 137;
+    %end;
+    .thread T_0, $init;
+    .scope S_0x640f29ba5210;
+T_1 ;
+    %pushi/vec4 0, 0, 4;
+    %store/vec4 v0x640f29bf2eb0_0, 0, 4;
+    %pushi/vec4 0, 15, 4;
+    %store/vec4 v0x640f29bf2f90_0, 0, 4;
+    %pushi/vec4 15, 15, 4;
+    %store/vec4 v0x640f29bf30c0_0, 0, 4;
+    %pushi/vec4 1, 0, 4;
+    %store/vec4 v0x640f29bf31a0_0, 0, 4;
+    %pushi/real 1685774663, 4067; load=3.14000
+    %pushi/real 2852127, 4045; load=3.14000
+    %add/wr;
+    %store/real v0x640f29bf3280_0;
+    %pushi/real 2097152000, 4077; load=4000.00
+    %store/real v0x640f29ba53a0_0;
+    %vpi_call/w 3 23 "$display", "out1 = %h ", v0x640f29bf2eb0_0 {0 0 0};
+    %vpi_call/w 3 24 "$display", "out2 = %b", v0x640f29bf2f90_0 {0 0 0};
+    %vpi_call/w 3 25 "$display", "out3 = %b ", v0x640f29bf30c0_0 {0 0 0};
+    %vpi_call/w 3 26 "$display", "out4 = %b ", v0x640f29bf31a0_0 {0 0 0};
+    %vpi_call/w 3 27 "$display", "pi  = %f ", v0x640f29bf3280_0 {0 0 0};
+    %vpi_call/w 3 28 "$display", "expo  = %0f ", v0x640f29ba53a0_0 {0 0 0};
+    %vpi_call/w 3 29 "$display", "expo  = %0b ", v0x640f29ba53a0_0 {0 0 0};
+    %vpi_call/w 3 30 "$display", "expo  = %0d ", v0x640f29ba53a0_0 {0 0 0};
+    %vpi_call/w 3 31 "$display", "hello my name is kpy ans todayi an practicing sv" {0 0 0};
+    %vpi_call/w 3 33 "$display", "my name = %s ", v0x640f29bf2e10_0 {0 0 0};
+    %vpi_call/w 3 34 "$display", "my name = %s ", v0x640f29bf2d30_0 {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "-";
+    "practice.sv";
