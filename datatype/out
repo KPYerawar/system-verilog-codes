@@ -7,32 +7,37 @@
 :vpi_module "/usr/local/lib/ivl/vhdl_textio.vpi";
 :vpi_module "/usr/local/lib/ivl/v2005_math.vpi";
 :vpi_module "/usr/local/lib/ivl/va_math.vpi";
-S_0x5b4d376651f0 .scope module, "real1" "real1" 2 1;
+:vpi_module "/usr/local/lib/ivl/v2009.vpi";
+S_0x5bb8cc0ca750 .scope package, "$unit" "$unit" 2 1;
  .timescale 0 0;
-v0x5b4d37641b60_0 .var/real "expo", 0 0;
-v0x5b4d37641f60_0 .var/real "pi", 0 0;
-v0x5b4d37687330_0 .var/real "pi_3decimal", 0 0;
-    .scope S_0x5b4d376651f0;
+S_0x5bb8cc0cb0f0 .scope module, "string_bit_byte" "string_bit_byte" 3 1;
+ .timescale 0 0;
+v0x5bb8cc0a5b60_0 .var/2u "bit1", 7 0;
+v0x5bb8cc0a5f60_0 .var/2u "hello", 88 0;
+v0x5bb8cc0ed0c0_0 .var/2s "letter", 7 0;
+v0x5bb8cc0ed180_0 .var/str "name";
+    .scope S_0x5bb8cc0cb0f0;
 T_0 ;
-    %pushi/real 1685774663, 4067; load=3.14000
-    %pushi/real 2852127, 4045; load=3.14000
-    %add/wr;
-    %store/real v0x5b4d37641f60_0;
-    %pushi/real 1685774663, 4067; load=3.14000
-    %pushi/real 2852127, 4045; load=3.14000
-    %add/wr;
-    %store/real v0x5b4d37687330_0;
-    %pushi/real 2048000000, 4089; load=1.60000e+07
-    %store/real v0x5b4d37641b60_0;
+    %pushi/str "krushna ";
+    %store/str v0x5bb8cc0ed180_0;
+    %pushi/vec4 100, 0, 8; draw_string_vec4
+    %store/vec4 v0x5bb8cc0a5b60_0, 0, 8;
+    %pushi/vec4 3502954712, 0, 34;
+    %concati/vec4 3728797406, 0, 32;
+    %concati/vec4 7498852, 0, 23;
+    %store/vec4 v0x5bb8cc0a5f60_0, 0, 89;
+    %pushi/vec4 100, 0, 8; draw_string_vec4
+    %store/vec4 v0x5bb8cc0ed0c0_0, 0, 8;
     %end;
-    .thread T_0;
-    .scope S_0x5b4d376651f0;
+    .thread T_0, $init;
+    .scope S_0x5bb8cc0cb0f0;
 T_1 ;
-    %vpi_call 2 7 "$display", " pi = %f \012 pi_3decimal = %0.3f \012 expo = %d \012 expo = %b ", v0x5b4d37641f60_0, v0x5b4d37687330_0, v0x5b4d37641b60_0, v0x5b4d37641b60_0 {0 0 0};
+    %vpi_call/w 3 8 "$display", " name = %s \012  bit1 = %s \012 hello = %s \012 letter = %s ", v0x5bb8cc0ed180_0, v0x5bb8cc0a5b60_0, v0x5bb8cc0a5f60_0, v0x5bb8cc0ed0c0_0 {0 0 0};
     %end;
     .thread T_1;
 # The file index is used to find the file name in the following table.
-:file_names 3;
+:file_names 4;
     "N/A";
     "<interactive>";
-    "real1.sv";
+    "-";
+    "string_bit_byte.sv";
