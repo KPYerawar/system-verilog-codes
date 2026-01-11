@@ -1,0 +1,28 @@
+#! /usr/local/bin/vvp
+:ivl_version "13.0 (devel)" "(s20250103-64-gdad78d525)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/local/lib/ivl/system.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/local/lib/ivl/v2005_math.vpi";
+:vpi_module "/usr/local/lib/ivl/va_math.vpi";
+:vpi_module "/usr/local/lib/ivl/v2009.vpi";
+S_0x5df9085a5070 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_0x5df9085a5200 .scope module, "struct_intro" "struct_intro" 3 1;
+ .timescale 0 0;
+v0x5df908580b60_0 .var "first_pixel", 23 0;
+    .scope S_0x5df9085a5200;
+T_0 ;
+    %pushi/vec4 2182231, 0, 24;
+    %store/vec4 v0x5df908580b60_0, 0, 24;
+    %vpi_call/w 3 24 "$display", " full pixel = %h & value of red ", v0x5df908580b60_0, &PV<v0x5df908580b60_0, 16, 8> {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "-";
+    "struce_intro.sv";
