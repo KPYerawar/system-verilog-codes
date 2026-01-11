@@ -1,0 +1,36 @@
+#! /usr/local/bin/vvp
+:ivl_version "13.0 (devel)" "(s20250103-64-gdad78d525)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/local/lib/ivl/system.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/local/lib/ivl/v2005_math.vpi";
+:vpi_module "/usr/local/lib/ivl/va_math.vpi";
+S_0x5c2658646020 .scope module, "datatype_practice2" "datatype_practice2" 2 1;
+ .timescale 0 0;
+v0x5c2658622b60_0 .var/real "area", 0 0;
+v0x5c2658622f60_0 .var/real "pi", 0 0;
+v0x5c2658668040_0 .var/real "radius", 0 0;
+    .scope S_0x5c2658646020;
+T_0 ;
+    %pushi/real 1685774663, 4067; load=3.14000
+    %pushi/real 2852127, 4045; load=3.14000
+    %add/wr;
+    %store/real v0x5c2658622f60_0;
+    %pushi/real 1207959552, 4068; load=4.50000
+    %store/real v0x5c2658668040_0;
+    %load/real v0x5c2658622f60_0;
+    %load/real v0x5c2658668040_0;
+    %mul/wr;
+    %load/real v0x5c2658668040_0;
+    %mul/wr;
+    %store/real v0x5c2658622b60_0;
+    %vpi_call 2 9 "$display", "area 2 decimal = %0.2f & int_area = %d ", v0x5c2658622b60_0, v0x5c2658622b60_0 {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "datatype_practice2.sv";
