@@ -1,0 +1,59 @@
+#! /usr/local/bin/vvp
+:ivl_version "13.0 (devel)" "(s20250103-64-gdad78d525)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/local/lib/ivl/system.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/local/lib/ivl/v2005_math.vpi";
+:vpi_module "/usr/local/lib/ivl/va_math.vpi";
+:vpi_module "/usr/local/lib/ivl/v2009.vpi";
+S_0x627f81cd8c20 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_0x627f81cd8db0 .scope module, "class_intro" "class_intro" 3 1;
+ .timescale 0 0;
+C0x627f81cd6bd0  .class "packet" [3]
+   0: "crc", "b1"
+   1: "header", "b8"
+   2: "payload", "b8"
+ ;
+v0x627f81cfbb30_0 .var/cobj "p1";
+S_0x627f81cfb710 .scope class, "packet" "packet" 3 2, 3 2 0, S_0x627f81cd8db0;
+ .timescale 0 0;
+S_0x627f81cfb8c0 .scope autofunction.void, "print" "print" 3 7, 3 7 0, S_0x627f81cfb710;
+ .timescale 0 0;
+v0x627f81cfba50_0 .var/cobj "@";
+TD_class_intro.packet.print ;
+    %load/obj v0x627f81cfba50_0;
+    %prop/v 1;
+    %pop/obj 1, 0;
+    %load/obj v0x627f81cfba50_0;
+    %prop/v 2;
+    %pop/obj 1, 0;
+    %vpi_call/w 3 8 "$display", "header = %b , payload = %b ", S<1,vec4,u8>, S<0,vec4,u8> {2 0 0};
+    %end;
+    .scope S_0x627f81cd8db0;
+T_1 ;
+    %new/cobj C0x627f81cd6bd0;
+    %store/obj v0x627f81cfbb30_0;
+    %load/obj v0x627f81cfbb30_0;
+    %pushi/vec4 12, 0, 8;
+    %store/prop/v 1, 8; Store in logic property header
+    %pop/obj 1, 0;
+    %load/obj v0x627f81cfbb30_0;
+    %pushi/vec4 51, 0, 8;
+    %store/prop/v 2, 8; Store in logic property payload
+    %pop/obj 1, 0;
+    %alloc S_0x627f81cfb8c0;
+    %load/obj v0x627f81cfbb30_0;
+    %store/obj v0x627f81cfba50_0;
+    %callf/void TD_class_intro.packet.print, S_0x627f81cfb8c0;
+    %free S_0x627f81cfb8c0;
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "-";
+    "class_intro.sv";
