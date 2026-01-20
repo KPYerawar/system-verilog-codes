@@ -17,4 +17,4 @@ p1.header = 8'b1100;
 p1.payload = 8'b110011;
 p1.print();
 end 
-endmodule 
+endmodul
