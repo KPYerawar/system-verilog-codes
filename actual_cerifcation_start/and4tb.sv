@@ -1,4 +1,6 @@
-  class transaction ;
+
+
+class transaction ;
     rand bit [3:0 ] data_in ;
     bit out ;
     
