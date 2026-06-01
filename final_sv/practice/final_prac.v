@@ -4,6 +4,7 @@ logic [7:0] data ;
 logic enable ;
 logic [8:0] double ;
 
+
 initial begin 
 data = 8'b110011;
 enale = 0;
