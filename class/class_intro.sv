@@ -5,6 +5,8 @@ bit [7:0] payload;
 bit crc;
 
 
+
+
 function void print();
 $display("header = %b , payload = %b " , header , payload );
 endfunction 
