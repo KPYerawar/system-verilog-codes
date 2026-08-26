@@ -201,12 +201,32 @@ forever begin
       
       virtual function void build_phase (uvm_phase phase ) ;
       super.build_phase (phase) ;
-          pkt = new("pkt", this);
+          exp_imp = new("exp_imp", this);
         endfunction 
        
        virtual function void write(pkt1 p1 ) ;
-         `uvm_info("SCOREBOARD",$sformatf("packet received in scoreboard : pkt  = %d ",pkt.greater,UVM_LOW   ) ;
-         endfunction 
+        bit exp_greater;
+    bit exp_equal;
+    bit exp_less;
+
+    if (p1.rst) begin
+      exp_greater = 0;
+      exp_equal   = 0;
+      exp_less    = 0;
+    end else begin
+      exp_greater = (p1.a > p1.b);
+      exp_equal   = (p1.a == p1.b);
+      exp_less    = (p1.a < p1.b);
+    end
+         
+        if ((p1.greater === exp_greater) && (p1.equal === exp_equal) && (p1.less === exp_less)) begin
+      `uvm_info("SCOREBOARD_PASS", $sformatf("MATCH! a=%0d b=%0d rst=%0b | greater=%0b equal=%0b less=%0b", 
+                p1.a, p1.b, p1.rst, p1.greater, p1.equal, p1.less), UVM_LOW);
+    end else begin
+      `uvm_error("SCOREBOARD_FAIL", $sformatf("MISMATCH! a=%0d b=%0d rst=%0b | Expected(G=%0b,E=%0b,L=%0b) != Actual(G=%0b,E=%0b,L=%0b)", 
+                 p1.a, p1.b, p1.rst, exp_greater, exp_equal, exp_less, p1.greater, p1.equal, p1.less));
+    end
+  endfunction
          endclass 
       
   
@@ -217,21 +237,108 @@ forever begin
   class age1 extends uvm_agent;
   `uvm_component_utils (age1)
   
-  function new(string name ="age1",uvm_component prent = null ) ;
+  function new(string name ="age1",uvm_component parent = null ) ;
  super.new(name , parent ) ;
  endfunction 
  
  mon1 m1 ;
  drv1 d1 ;
+ trans1 t1 ;
+ 
+ virtual function void build_phase (uvm_phase phase);
+ super.build_phase (phase);
+          m1 = mon1::type_id::create("m1",this);
+          d1 = drv1::type_id::create("d1",this);
+          t1 = trans1::type_id::create("t1",this);
+      endfunction 
+      
+     virtual  function void  connect_phase(uvm_phase phase);
+      super.connect_phase(phase);
+      d1.seq_item_port.connect(t1.seq_item_export);
+      endfunction 
+   endclass 
+   
+   
+ //////////////////////////////////////////////////////////////////////
+ /////////////////////  env /////////////////////////////////////////////
+ ///////////////////////////////////////////////////////////////////
+ 
+ class env1 extends uvm_env ;
+ `uvm_component_utils(env1)
+ 
+ function new(string name = "env1",uvm_component parent = null );
+ super.new(name , parent );
+ endfunction 
+ 
+ age1 a1 ;
+ sco1 s1 ;
+ 
+ virtual function void build_phase (uvm_phase phase );
+ super.build_phase (phase) ;
+    a1 = age1::type_id::create("a1",this);
+    s1 = sco1::type_id::create("s1",this);
+ endfunction 
+ 
+ virtual function void connect_phase (uvm_phase phase );
+ super.connect_phase (phase) ;
+      a1.m1.ap.connect(s1.exp_imp);
+      endfunction 
+ endclass 
  
  
+ /////////////////////////////////////////////////////////////////////
+ ///////////////////////   test /////////////////////////////////
+ //////////////////////////////////////////////////////////////////////
  
+ class test1 extends uvm_test ;
+ `uvm_component_utils(test1)
+ 
+ env1 e1 ;
+ trans1 t1 ;
+ 
+ function new(string name = "test1",uvm_component parent = null );
+ super.new(name , parent );
+ endfunction 
+ 
+ 
+ virtual function void build_phase (uvm_phase phase );
+ super.build_phase (phase);
+    e1 = env1::type_id::create("e1",this);
+    t1 = trans1::type_id::create("t1");
+ endfunction 
+ 
+ endclass 
+ 
+ task run_phase (uvm_phase phase);
+ phase.raise_objection (this) ;
+ s1.start(e1.a1.p1);
+ phase.drop_objection(this);
+ endtask 
+ 
+ /////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////// module ///////////////////////////////
+ ///////////////////////////////////////////////////////////////////////
+ 
+ 
+module UVM_BEGIN_GIT1;
+test1 t1 ;
+bit clk ;
+always #5 clk = ~clk ;
+inf1 inf(clk);
+
+comparator_4bit dut (
+    .clk     (inf.clk),
+    .rst     (inf.rst),
+    .a       (inf.a),
+    .b       (inf.b),
+    .greater (inf.greater),
+    .equal   (inf.equal),
+    .less    (inf.less)
+  );
   
-
-
-
-logic  
-module UVM_BEGIN_GIT1(
-
-    );
+  
+initial begin 
+     uvm_config_db#(virtual inf1)::set(null , "*","vif",inf);
+     run_test("test1");
+     end 
 endmodule
