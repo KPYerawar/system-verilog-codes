@@ -156,7 +156,73 @@ forever begin
 //////////////////////   scoreboard   ///////////////////////
 /////////////////////////////////////////////////////
 
+class alusco extends uvm_scoreboard ;
+`uvm_component_utils(alusco)
 
+function new (string name = "alusco", uvm_component parent = null );
+super.new(name, parent );
+endfunction 
+
+uvm_analysis_imp #(aluseqr , alusco) imp ;
+
+virtual function void build_phase (uvm_phase phase );
+super.build_phase (phase);
+      imp = new("imp",this);
+      endfunction 
+      
+  virtual function void write (aluseq seq);
+  bit [4:0] copy_out ;
+     if (seq.rst) begin 
+         copy_out = 0 ;
+         end 
+      else begin 
+           case (seq.op)
+             2'b00: copy_out = seq.a + seq.b ;
+             2'b01: copy_out = seq.a - seq.b ;
+             2'b10: copy_out <= {1'b0, (seq.a & seq.b)};
+        2'b11: copy_out <= {1'b0, (seq.a | seq.b)};
+        default: copy_out  <= 5'b0;
+      endcase 
+     end 
+  
+  if (copy_out == seq.out) begin 
+    `uvm_info ("TEST CASE","PASS",UVM_LOW);
+    end 
+  else 
+     begin 
+      `uvm_info("TEST CASE","FAIL",UVM_LOW);
+      end 
+   
+ endfunction 
+ endclass 
+ 
+ ///////////////////////////////////////////////////////
+ //////////////////////  agent  ///////////////////////
+ /////////////////////////////////////////////////////
+ 
+ class aluage extends uvm_agent;
+ `uvm_component_utils(aluage)
+ 
+ alumon m1 ;
+ aludrv d1 ;
+ uvm_sequencer #(aluseqr) seqr;
+ 
+ function new(string name = "aluage",uvm_component parent = null );
+ super.new(name, parent);
+ endfunction 
+ 
+ virtual function void build_phase (uvm_phase phase);
+ super.build_phase(phase);
+          m1 = alumon::type_id::create("m1",this);
+          d1 = aludrv::type_id::create("d1",this);
+          seqr = aluseqr::type_id::create("seqr",this);
+          endfunction 
+          
+    virtual function void connect_phase(uvm_phase phase);
+    super.connect_phase(phase);
+       m1.seq_item_port.connect(d1.seq_item_export);
+     endfunction 
+  endclass 
 module UVM_PRAC_BAGIN(
 
     );
